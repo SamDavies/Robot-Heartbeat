@@ -3,12 +3,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-
+# engine = create_engine('sqlite:////tmp/test.db', convert_unicode=True)
 if 'DATABASE_URL' in os.environ:
     print "POSTGRES FOUND"
     engine = create_engine(os.environ['DATABASE_URL'], convert_unicode=True)
 else:
-    engine = create_engine('sqlite:////tmp/test.db', convert_unicode=True)
+    engine = create_engine('postgresql://stuff_sam:Warrior4750@127.0.0.1/stuff_thing', convert_unicode=True)
+
 
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
