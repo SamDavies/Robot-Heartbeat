@@ -12,12 +12,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def fetch_stats():
-    snapshot = db_session.query(SnapShot).order_by(SnapShot.time).first()
-    if snapshot:
-        return render_template("snapshot.html", snapshot=snapshot)
-    else:
-        return render_template("waiting.html")
-
+    # snapshot = db_session.query(SnapShot).order_by(SnapShot.time).first()
+    # if snapshot:
+    #     return render_template("snapshot.html", snapshot=snapshot)
+    # else:
+    #     return render_template("waiting.html")
+    return render_template("waiting.html")
 
 @app.route('/set/<raw_json>')
 def set_stats(raw_json):
