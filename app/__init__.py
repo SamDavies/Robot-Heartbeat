@@ -27,3 +27,10 @@ def set_stats(raw_json):
         SnapShot(d.current_zone, d.dist_to_ball, d.angle_to_ball, d.current_state, d.action, d.action_duration,
                  d.is_attacker, d.in_beam, d.ball_zone, d.state_trace, d.action_info, d.is_ball_close, d.action_trace,
                  d.friend, d.friend_zone, d.enemy_att, d.enemy_att_zone, d.enemy_def, d.enemy_def_zone, d.my_pos))
+
+    
+@app.route('/synth')
+def synth():
+    database.init_db()
+    print("database initialised")
+    return "", 200
