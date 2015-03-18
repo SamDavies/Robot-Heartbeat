@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 if 'DATABASE_URL' in os.environ:
+    print "POSTGRES FOUND"
     engine = create_engine(os.environ['DATABASE_URL'], convert_unicode=True)
 else:
     engine = create_engine('sqlite:////tmp/test.db', convert_unicode=True)
