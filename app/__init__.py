@@ -21,13 +21,16 @@ def fetch_stats():
         return render_template("waiting.html")
 
 
-@app.route('/set', methods=['POST'])
+@app.route('/set/', methods=['POST'])
 def set_stats():
-    d = json.loads(request.form['json_playload'])
+    payload = json.loads(request.form['payload'])
+    print payload.keys()
+    d = payload
     db_session.add(
-        SnapShot(d.current_zone, d.dist_to_ball, d.angle_to_ball, d.current_state, d.action, d.action_duration,
-                 d.is_attacker, d.in_beam, d.ball_zone, d.state_trace, d.action_info, d.is_ball_close, d.action_trace,
-                 d.friend, d.friend_zone, d.enemy_att, d.enemy_att_zone, d.enemy_def, d.enemy_def_zone, d.my_pos))
+        SnapShot(d['current_zone'], d['dist_to_ball'], d['angle_to_ball'], d['current_state'], d['action'],
+                 d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'],
+                 d['action_info'], d['is_ball_close'], d['action_trace'], d['friend'], d['friend_zone'], d['enemy_att'],
+                 d['enemy_att_zone'], d['enemy_def'], d['enemy_def_zone'], d['my_pos']))
     return "", 200
 
 
