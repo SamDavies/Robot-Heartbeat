@@ -1,6 +1,7 @@
 import json
 
 from flask import Flask, render_template, request
+import requests
 
 from database import db_session
 import database
@@ -24,18 +25,36 @@ def fetch_stats():
 @app.route('/set/', methods=['POST'])
 def set_stats():
     payload = json.loads(request.form['payload'])
-    print payload.keys()
     d = payload
-    db_session.add(
-        SnapShot(d['current_zone'], d['dist_to_ball'], d['angle_to_ball'], d['current_state'], d['action'],
-                 d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'],
-                 d['action_info'], d['is_ball_close'], d['action_trace'], d['friend'], d['friend_zone'], d['enemy_att'],
-                 d['enemy_att_zone'], d['enemy_def'], d['enemy_def_zone'], d['my_pos']))
+    snapshot = SnapShot(d['current_zone'], d['dist_to_ball'], d['angle_to_ball'], d['current_state'], d['action'],
+                        d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'],
+                        d['action_info'], d['is_ball_close'], d['action_trace'], d['friend'], d['friend_zone'], d['enemy_att'],
+                        d['enemy_att_zone'], d['enemy_def'], d['enemy_def_zone'], d['my_pos'])
+    db_session.add(snapshot)
+    db_session.commit()
     return "", 200
 
 
 @app.route('/synth')
 def synth():
     database.init_db()
-    print("database initialised")
+    payload = {'current_zone': '0', 'dist_to_ball': '0',
+                    'angle_to_ball': '0', 'current_state': '0', 'action': '0',
+                    'action_duration': '0', 'is_attacker': '0', 'in_beam': '0',
+                    'ball_zone': '0', 'state_trace': '0', 'action_info': '0',
+                    'is_ball_close': '0', 'action_trace': '0', 'friend': '0',
+                    'friend_zone': '0', 'enemy_att': '0', 'enemy_att_zone': '0',
+                    'enemy_def': '0', 'enemy_def_zone': '0', 'my_pos': '0'}
+    payload_json = json.dumps(payload)
+    # check the thing feed
+    payload = json.loads(payload_json)
+    d = payload
+    snapshot = SnapShot(d['current_zone'], d['dist_to_ball'], d['angle_to_ball'], d['current_state'], d['action'],
+                        d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'],
+                        d['action_info'], d['is_ball_close'], d['action_trace'], d['friend'], d['friend_zone'], d['enemy_att'],
+                        d['enemy_att_zone'], d['enemy_def'], d['enemy_def_zone'], d['my_pos'])
+    db_session.add(snapshot)
+    db_session.commit()
+
+    print "database initialised"
     return "", 200
