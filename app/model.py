@@ -24,9 +24,9 @@ class SnapShot(Base):
     action_trace = Column(String(100))
     friend = Column(String(100))
     friend_zone = Column(Integer)
-    enemy_att = Column(Integer)
+    enemy_att = Column(String(100))
     enemy_att_zone = Column(Integer)
-    enemy_def = Column(Integer)
+    enemy_def = Column(String(100))
     enemy_def_zone = Column(Integer)
     my_pos = Column(String(100))
 

@@ -2,6 +2,32 @@
 
 {% block content %}
 
-    {{ snapshot.is_attacker }}
+    <br>Robot - {% if snapshot.is_attacker %}Attacker{% else %}Defender{% endif %} - Zone 1
+    <br>--------------------------------------------------
+    <br>| State      : {{ snapshot.current_state }}
+    <br>| Action     : {{ snapshot.action }}
+    <br>| Duration   : {{ snapshot.action_duration }} seconds
+    <br>--------------------------------------------------
+    <br>| {{  snapshot.info }}
+    <br>|
+    <br>--------------------------------------------------
+    <br>|  Ball is {{ snapshot.dist_to_ball }}cm away
+    <br>|  {% if snapshot.is_ball_close %}Ball is close to robot{% else %}Ball far from robot{% endif %}
+    <br>|  Ball at angle : {{ snapshot.angle_to_ball }} deg {% if snapshot.is_ball_close %}(IN BEAM){% endif %}
+    <br>|  Ball Zone : {{ snapshot.ball_zone }}
+    <br>--------------------------------------------------
+    <br>|  I'm in zone {{ snapshot.current_zone }} at {{ snapshot.my_pos }}
+    <br>|  Friend in zone {{ snapshot.friend_zone }} at {{ snapshot.friend }}
+    <br>|  Enemy attacker in zone {{ snapshot.enemy_att_zone }} at {{ snapshot.enemy_att }}
+    <br>|  Enemy defender in zone {{ snapshot.enemy_def_zone }} at {{ snapshot.enemy_def }}
+    <br>--------------------------------------------------
+    <br>|  Previous 9 Actions ...
+    <br>|  -> ************    -> **********
+    <br>--------------------------------------------------
+    <br>|  State Trace ...
+    <br>|  -> ******************   -> *******         -> ***
+    <br>|  -> ******************   -> *************   -> ***
+    <br>|  -> ******************
+    <br>--------------------------------------------------
 
 {% endblock %}
