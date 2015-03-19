@@ -26,8 +26,8 @@ class MainTestCase(unittest.TestCase):
         payload = {'current_zone': '0', 'dist_to_ball': '0',
                     'angle_to_ball': '0', 'current_state': '0', 'action': '0',
                     'action_duration': '0', 'is_attacker': '0', 'in_beam': '0',
-                    'ball_zone': '0', 'state_trace': '0', 'action_info': '0',
-                    'is_ball_close': '0', 'action_trace': '0', 'friend': '0',
+                    'ball_zone': '0', 'state_trace': ['0'], 'action_info': '0',
+                    'is_ball_close': '0', 'action_trace': ['0'], 'friend': '0',
                     'friend_zone': '0', 'enemy_att': '0', 'enemy_att_zone': '0',
                     'enemy_def': '0', 'enemy_def_zone': '0', 'my_pos': '0'}
         payload_json = json.dumps(payload)

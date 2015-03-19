@@ -27,8 +27,8 @@ def set_stats():
     payload = json.loads(request.form['payload'])
     d = payload
     snapshot = SnapShot(d['current_zone'], d['dist_to_ball'], d['angle_to_ball'], d['current_state'], d['action'],
-                        d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'],
-                        d['action_info'], d['is_ball_close'], d['action_trace'], d['friend'], d['friend_zone'], d['enemy_att'],
+                        d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'][0],
+                        d['action_info'], d['is_ball_close'], d['action_trace'][0], d['friend'], d['friend_zone'], d['enemy_att'],
                         d['enemy_att_zone'], d['enemy_def'], d['enemy_def_zone'], d['my_pos'])
     db_session.add(snapshot)
     db_session.commit()
@@ -37,7 +37,9 @@ def set_stats():
 
 @app.route('/synth')
 def synth():
+    print "initialising"
     database.init_db()
+    print "database initialised"
     payload = {'current_zone': '0', 'dist_to_ball': '0',
                     'angle_to_ball': '0', 'current_state': '0', 'action': '0',
                     'action_duration': '0', 'is_attacker': '0', 'in_beam': '0',
@@ -56,5 +58,4 @@ def synth():
     db_session.add(snapshot)
     db_session.commit()
 
-    print "database initialised"
     return "", 200
