@@ -2,32 +2,66 @@
 
 {% block content %}
 
-    <br>Robot - {% if snapshot.is_attacker %}Attacker{% else %}Defender{% endif %} - Zone 1
-    <br>--------------------------------------------------
-    <br>| State      : {{ snapshot.current_state }}
-    <br>| Action     : {{ snapshot.action }}
-    <br>| Duration   : {{ snapshot.action_duration }} seconds
-    <br>--------------------------------------------------
-    <br>| {{  snapshot.info }}
-    <br>|
-    <br>--------------------------------------------------
-    <br>|  Ball is {{ snapshot.dist_to_ball }}cm away
-    <br>|  {% if snapshot.is_ball_close %}Ball is close to robot{% else %}Ball far from robot{% endif %}
-    <br>|  Ball at angle : {{ snapshot.angle_to_ball }} deg {% if snapshot.is_ball_close %}(IN BEAM){% endif %}
-    <br>|  Ball Zone : {{ snapshot.ball_zone }}
-    <br>--------------------------------------------------
-    <br>|  I'm in zone {{ snapshot.current_zone }} at {{ snapshot.my_pos }}
-    <br>|  Friend in zone {{ snapshot.friend_zone }} at {{ snapshot.friend }}
-    <br>|  Enemy attacker in zone {{ snapshot.enemy_att_zone }} at {{ snapshot.enemy_att }}
-    <br>|  Enemy defender in zone {{ snapshot.enemy_def_zone }} at {{ snapshot.enemy_def }}
-    <br>--------------------------------------------------
-    <br>|  Previous 9 Actions ...
-    <br>|  -> ************    -> **********
-    <br>--------------------------------------------------
-    <br>|  State Trace ...
-    <br>|  -> ******************   -> *******         -> ***
-    <br>|  -> ******************   -> *************   -> ***
-    <br>|  -> ******************
-    <br>--------------------------------------------------
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>Robot - {% if snapshot.is_attacker %}Attacker{% else %}Defender{% endif %} - Zone 1</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+                <div class="col-sm-12">
+                    State      : {{ snapshot.current_state }}
+                </div>
+                <div class="col-sm-12">
+                    Action     : {{ snapshot.action }}
+                </div>
+                <div class="col-sm-12">
+                    Duration   : {{ snapshot.action_duration }} seconds
+                </div>
+                <div class="col-sm-12">
+                    {{  snapshot.info }}
+                </div>
+        </div>
+        <div class="col-sm-6">
+                <div class="col-sm-12">
+                    Ball is {{ snapshot.dist_to_ball }}cm away
+                </div>
+                <div class="col-sm-12">
+                    {% if snapshot.is_ball_close %}Ball is close to robot{% else %}Ball far from robot{% endif %}
+                </div>
+                <div class="col-sm-12">
+                    Ball at angle : {{ snapshot.angle_to_ball }} deg {% if snapshot.is_ball_close %}(IN BEAM){% endif %}
+                </div>
+                <div class="col-sm-12">
+                    Ball Zone : {{ snapshot.ball_zone }}
+                </div>
+        </div>
+        <div class="col-sm-6">
+                <div class="col-sm-12">
+                    I'm in zone {{ snapshot.current_zone }} at {{ snapshot.my_pos }}
+                </div>
+                <div class="col-sm-12">
+                    Friend in zone {{ snapshot.friend_zone }} at {{ snapshot.friend }}
+                </div>
+                <div class="col-sm-12">
+                    Enemy attacker in zone {{ snapshot.enemy_att_zone }} at {{ snapshot.enemy_att }}
+                </div>
+                <div class="col-sm-12">
+                    Enemy defender in zone {{ snapshot.enemy_def_zone }} at {{ snapshot.enemy_def }}
+                </div>
+        </div>
+    </div>
+</div>
+        <br>--------------------------------------------------
+        <br>|  Previous 9 Actions ...
+        <br>|  -> ************    -> **********
+        <br>--------------------------------------------------
+        <br>|  State Trace ...
+        <br>|  -> ******************   -> *******         -> ***
+        <br>|  -> ******************   -> *************   -> ***
+        <br>|  -> ******************
+        <br>--------------------------------------------------
+
 
 {% endblock %}
