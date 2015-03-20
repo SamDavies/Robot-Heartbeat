@@ -1,9 +1,10 @@
 import unittest
 import os
-import app
 import tempfile
-import base64
 import json
+
+import app
+
 
 __author__ = 'Sam Davies'
 

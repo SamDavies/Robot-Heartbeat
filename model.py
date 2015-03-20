@@ -1,12 +1,13 @@
 import datetime
 
+from app import db
 from sqlalchemy import Column, Integer, String, Boolean, Float, DateTime
+from sqlalchemy.dialects.postgresql import JSON
 
-from app.database import Base
 
-
-class SnapShot(Base):
+class SnapShot(db.Model):
     __tablename__ = 'snapshot'
+
     id = Column(Integer, primary_key=True)
     time = Column(DateTime)
     current_zone = Column(String(100))

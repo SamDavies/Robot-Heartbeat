@@ -1,34 +1,30 @@
-# Statement for enabling the development environment
-DEBUG = True
-
-# Define the application directory
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
-# Define the database - we are working with
-# SQLite for this example
-DATABASE = os.path.join(BASE_DIR, '/tmp/sample.db')
 
 
-SQLALCHEMY_DATABASE_URI = os.path.join(BASE_DIR, 'app.db')
-DATABASE_CONNECT_OPTIONS = {}
-SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
-SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    SECRET_KEY = 'this-really-needs-to-be-changed'
+    if 'DATABASE_URL' in os.environ:
+        SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    else:
+        SQLALCHEMY_DATABASE_URI = 'postgresql://stuff_sam:Warrior4750@127.0.0.1/stuff_thing'
 
-# Application threads. A common general assumption is
-# using 2 per available processor cores - to handle
-# incoming requests using one and performing background
-# operations using the other.
-THREADS_PER_PAGE = 2
 
-# Enable protection against *Cross-site Request Forgery (CSRF)*
-CSRF_ENABLED = True
+class ProductionConfig(Config):
+    DEBUG = False
 
-# Use a secure, unique and absolutely secret key for
-# signing the data.
-CSRF_SESSION_KEY = "secret"
 
-# Secret key for signing cookies
-SECRET_KEY = "secret"
-USERNAME = 'admin'
-PASSWORD = 'default'
+class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
