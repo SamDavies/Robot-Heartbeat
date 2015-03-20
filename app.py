@@ -22,10 +22,11 @@ def fetch_stats():
 
 @app.route('/refresh')
 def refresh_stats():
-    snapshot = db.session.query(SnapShot).order_by(SnapShot.time).first()
-    time_dif = datetime.datetime.now() - snapshot.time
+    snapshot = db.session.query(SnapShot).order_by(SnapShot.time.desc()).first()
+    time_dif = (datetime.datetime.now() - snapshot.time)
+    time_print = "{0}.{1}".format(time_dif.seconds, int(time_dif.microseconds/10000))
     if snapshot:
-        return render_template("snapshot_data.html", snapshot=snapshot, time=time_dif)
+        return render_template("snapshot_data.html", snapshot=snapshot, time=time_print)
     else:
         return render_template("waiting.html")
 

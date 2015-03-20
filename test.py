@@ -17,7 +17,6 @@ class MainTestCase(unittest.TestCase):
         # Flask-WTForms is trying to validate your CSRF token
         app.app.config['WTF_CSRF_ENABLED'] = False
         self.app = app.app.test_client()
-        app.database.init_db()
 
     def tearDown(self):
         os.close(self.db_fd)
@@ -33,7 +32,7 @@ class MainTestCase(unittest.TestCase):
                     'enemy_def': [0, 3], 'enemy_def_zone': '0', 'my_pos': [0, 4]}
         payload_json = json.dumps(payload)
         # check the thing feed
-        response = self.app.post('https://robot-heartbeat.herokuapp.com/set/', data=dict(payload=payload_json))
+        response = self.app.post('/set/', data=dict(payload=payload_json))
         raw_json = response.data
-        self.assertNotIn('Waiting for a heartbeat', raw_json)
+        self.assertNotIn(b'Waiting for a heartbeat', raw_json)
         self.assertEquals(response.status_code, 200)
