@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron">
+            <h2>Robot - {% if snapshot.is_attacker %}Attacker{% else %}Defender{% endif %} - Zone 1</h2>
+            <h2><small>last update - {{ time }}</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+                <div class="col-md-12">
+                    State      : {{ snapshot.current_state }}
+                </div>
+                <div class="col-md-12">
+                    Action     : {{ snapshot.action }}
+                </div>
+                <div class="col-md-12">
+                    Duration   : {{ snapshot.action_duration }} seconds
+                </div>
+                <div class="col-md-12">
+                    {{  snapshot.info }}
+                </div>
+        </div>
+        <div class="col-md-6">
+                <div class="col-md-12">
+                    Ball is {{ snapshot.dist_to_ball }}cm away
+                </div>
+                <div class="col-md-12">
+                    {% if snapshot.is_ball_close %}Ball is close to robot{% else %}Ball far from robot{% endif %}
+                </div>
+                <div class="col-md-12">
+                    Ball at angle : {{ snapshot.angle_to_ball }} deg {% if snapshot.is_ball_close %}(IN BEAM){% endif %}
+                </div>
+                <div class="col-md-12">
+                    Ball Zone : {{ snapshot.ball_zone }}
+                </div>
+        </div>
+        <div class="col-md-6">
+                <div class="col-md-12">
+                    I'm in zone {{ snapshot.current_zone }} at {{ snapshot.my_pos }}
+                </div>
+                <div class="col-md-12">
+                    Friend in zone {{ snapshot.friend_zone }} at {{ snapshot.friend }}
+                </div>
+                <div class="col-md-12">
+                    Enemy attacker in zone {{ snapshot.enemy_att_zone }} at {{ snapshot.enemy_att }}
+                </div>
+                <div class="col-md-12">
+                    Enemy defender in zone {{ snapshot.enemy_def_zone }} at {{ snapshot.enemy_def }}
+                </div>
+        </div>
+    </div>
+</div>
+        <br>--------------------------------------------------
+        <br>|  Previous 9 Actions ...
+        <br>|  -> ************    -> **********
+        <br>--------------------------------------------------
+        <br>|  State Trace ...
+        <br>|  -> ******************   -> *******         -> ***
+        <br>|  -> ******************   -> *************   -> ***
+        <br>|  -> ******************
+        <br>--------------------------------------------------

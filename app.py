@@ -3,6 +3,7 @@ import os
 
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
+import time
 
 
 app = Flask(__name__)
@@ -17,9 +18,14 @@ from model import *
 
 @app.route('/')
 def fetch_stats():
+    return render_template("snapshot.html")
+
+@app.route('/refresh')
+def refresh_stats():
     snapshot = db.session.query(SnapShot).order_by(SnapShot.time).first()
+    time_dif = datetime.datetime.now() - snapshot.time
     if snapshot:
-        return render_template("snapshot.html", snapshot=snapshot)
+        return render_template("snapshot_data.html", snapshot=snapshot, time=time_dif)
     else:
         return render_template("waiting.html")
 
