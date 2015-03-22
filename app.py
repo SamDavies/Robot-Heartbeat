@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
 import time
+from sqlalchemy.orm import aliased
 
 
 app = Flask(__name__)
@@ -44,9 +45,24 @@ def set_stats():
                         d['action_duration'], d['is_attacker'], d['in_beam'], d['ball_zone'], d['state_trace'][0],
                         d['action_info'], d['is_ball_close'], d['action_trace'][0], friend_pos, d['friend_zone'],
                         enemy_att_pos, d['enemy_att_zone'], enemy_def_pos, d['enemy_def_zone'], my_pos)
+
+    # add the new snapshot
     db.session.add(snapshot)
+
+    # keep the number of snapshots below 5000
+    rows = db.session.query(SnapShot).count()
+
+    if rows > 1000:
+
+        # get the time of the 5000th row
+        snapshots_1 = aliased(SnapShot, name="S1")
+
+        top_snapshots = db.session.query(snapshots_1.id).order_by(snapshots_1.time.desc()).limit(1000).subquery()
+        SnapShot.query.filter(~SnapShot.id.in_(top_snapshots)).delete(synchronize_session='fetch')
+
     db.session.commit()
-    return "", 200
+
+    return str(rows), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

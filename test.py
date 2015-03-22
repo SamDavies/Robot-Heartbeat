@@ -23,6 +23,12 @@ class MainTestCase(unittest.TestCase):
         os.unlink(app.app.config['DATABASE'])
 
     def test_set(self):
+        response = self.add_snapshot()
+        raw_json = response.data
+        self.assertNotIn(b'Waiting for a heartbeat', raw_json)
+        self.assertEquals(response.status_code, 200)
+
+    def add_snapshot(self):
         payload = {'current_zone': '0', 'dist_to_ball': '0',
                     'angle_to_ball': '0', 'current_state': '0', 'action': '0',
                     'action_duration': '0', 'is_attacker': '0', 'in_beam': '0',
@@ -32,7 +38,8 @@ class MainTestCase(unittest.TestCase):
                     'enemy_def': [0, 3], 'enemy_def_zone': '0', 'my_pos': [0, 4]}
         payload_json = json.dumps(payload)
         # check the thing feed
-        response = self.app.post('/set/', data=dict(payload=payload_json))
-        raw_json = response.data
-        self.assertNotIn(b'Waiting for a heartbeat', raw_json)
-        self.assertEquals(response.status_code, 200)
+        return self.app.post('/set/', data=dict(payload=payload_json))
+
+    def test_db_limit(self):
+        response = self.add_snapshot()
+        self.assertEquals(response.data, b'1001')
