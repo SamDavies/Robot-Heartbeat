@@ -17,6 +17,14 @@
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
+
+    <script type="text/javascript" src="static/raphael-min.js"></script>
+    <style type="text/css">
+        #canvas_container {
+            width: 400px;
+            border: 1px solid #aaa;
+        }
+    </style>
 </head>
 <body>
     {% block content %}{% endblock %}

@@ -4,8 +4,36 @@
 
 <div id="result"></div>
 
+
+<div class="container">
+    <div id="canvas_container"></div>
+</div>
+
 <script>
     jQuery(document).ready(function () {
+
+        var paper = new Raphael(document.getElementById('canvas_container'), 400, 200);
+
+        // the ball
+        var ball = paper.circle(50, 50, 5);
+        ball.attr({fill: '#f55', stroke: '#eee', 'stroke-width': 1});
+
+        // my robot
+        var me = paper.rect(20, 75, 30, 30);
+        me.attr({fill: '#5e5', stroke: '#eee', 'stroke-width': 1});
+
+        // enemy attacker
+        var enemyAtt = paper.rect(150, 75, 30, 30);
+        enemyAtt.attr({fill: '#f55', stroke: '#eee', 'stroke-width': 1});
+
+        // friend
+        var friend = paper.rect(250, 75, 30, 30);
+        friend.attr({fill: '#55e', stroke: '#eee', 'stroke-width': 1});
+
+        // enemy attacker
+        var enemyDef = paper.rect(350, 75, 30, 30);
+        enemyDef.attr({fill: '#f55', stroke: '#eee', 'stroke-width': 1});
+
 
         function autoRefreshData()
         {
